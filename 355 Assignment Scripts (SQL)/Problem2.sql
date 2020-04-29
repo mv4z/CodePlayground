@@ -1,0 +1,19 @@
+/*
+Martin Vazquez
+CSC 355 Section 501
+Assignment 7 Problem 2
+March 11, 2020
+*/
+CREATE OR REPLACE TRIGGER salaryCap AFTER INSERT ON PAYROLL
+declare
+	counter INTEGER;
+BEGIN
+	SELECT COUNT(ESALARY) 
+	INTO counter
+    FROM PAYROLL
+    WHERE ESALARY > 10000;
+
+	if(counter > 3) THEN 
+		RAISE_APPLICATION_ERROR(-20001, 'NO MORE THAN 3 EMPLOYEES CAN HAVE A 10,000/MONTH SALARY');
+    END if;
+end;
